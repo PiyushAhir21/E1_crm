@@ -3,13 +3,10 @@ package com.comcast.crm.orgtest;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.Duration;
-import java.util.Properties;
-import java.util.Scanner;
 
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.openqa.selenium.By;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,27 +14,21 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 
+import generic_utility.FileUtility;
+import generic_utility.WebDriverUtility;
+
 public class CreateOrgTest {
 
 	public static void main(String[] args) throws InterruptedException, IOException {
-//		step = 1 => get the java representation object of the physical file
-		FileInputStream fis = new FileInputStream(
-				"C:\\Users\\User\\git\\E1\\E1-Vtiger-crm\\src\\test\\resources\\commonData.properties");
-
-//		step - 2 => by using load(), load all the keys in object of properties class
-		Properties pObj = new Properties();
-		pObj.load(fis);
-
-//		step - 3 => By using getProperty(), get the value
-		String BROWSER = pObj.getProperty("bro");
-		String URL = pObj.getProperty("url");
-		String USERNAME = pObj.getProperty("un");
-		String PASSWORD = pObj.getProperty("pwd");
+		FileUtility fUtil = new FileUtility();
+		
+		String BROWSER = fUtil.getDataFromPropFile("bro");
+		String URL = fUtil.getDataFromPropFile("url");
+		String USERNAME = fUtil.getDataFromPropFile("un");
+		String PASSWORD = fUtil.getDataFromPropFile("pwd");
 
 //		getting data from excel file
-		FileInputStream fis2 = new FileInputStream("C:\\Users\\User\\Desktop\\tsdE1.xlsx");
-		Workbook wb = WorkbookFactory.create(fis2);
-		String orgName = wb.getSheet("org").getRow(4).getCell(3).getStringCellValue() + (int) (Math.random() * 9999) ;
+		String orgName = fUtil.getDataFromExcelFile("org", 4, 3);
 		
 //		opening browser	
 		WebDriver driver = null;
@@ -52,6 +43,8 @@ public class CreateOrgTest {
 			driver = new ChromeDriver();
 		}
 
+		WebDriverUtility wdUtil = new WebDriverUtility(driver);
+		
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
 
@@ -89,14 +82,14 @@ public class CreateOrgTest {
 
 //		Logout
 		WebElement profile = driver.findElement(By.cssSelector("img[src='themes/softed/images/user.PNG']"));
-		Actions act = new Actions(driver);
-		act.moveToElement(profile).build().perform();
+		wdUtil.hover(profile);
+
 
 		driver.findElement(By.linkText("Sign Out")).click();
 
 //		close the browser
 		Thread.sleep(5000);
-		driver.quit();
+		wdUtil.closingBrowser();
 	}
 
 }
