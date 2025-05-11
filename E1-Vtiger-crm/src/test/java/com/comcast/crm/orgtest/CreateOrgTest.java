@@ -6,6 +6,8 @@ import java.time.Duration;
 import java.util.Properties;
 import java.util.Scanner;
 
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -32,6 +34,11 @@ public class CreateOrgTest {
 		String USERNAME = pObj.getProperty("un");
 		String PASSWORD = pObj.getProperty("pwd");
 
+//		getting data from excel file
+		FileInputStream fis2 = new FileInputStream("C:\\Users\\User\\Desktop\\tsdE1.xlsx");
+		Workbook wb = WorkbookFactory.create(fis2);
+		String orgName = wb.getSheet("org").getRow(4).getCell(3).getStringCellValue() + (int) (Math.random() * 9999) ;
+		
 //		opening browser	
 		WebDriver driver = null;
 
@@ -68,7 +75,7 @@ public class CreateOrgTest {
 		orgPlus.click();
 
 		WebElement orgNameField = driver.findElement(By.name("accountname"));
-		String orgName = "Lenovo" + (int) (Math.random() * 9999);
+//		String orgName = "Lenovo" + (int) (Math.random() * 9999);
 		orgNameField.sendKeys(orgName);
 
 		WebElement saveBtn = driver.findElement(By.cssSelector("input[title='Save [Alt+S]']"));

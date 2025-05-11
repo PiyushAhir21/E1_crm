@@ -6,14 +6,14 @@ import java.util.Properties;
 
 public class GetDataFromPropertiesFile {
 	public static void main(String[] args) throws IOException {
-//		step = 1 => get the java representation object of the physical file
+//		Step - 1 => Get the java representation object of the physical file
 		FileInputStream fis = new FileInputStream("C:\\Users\\User\\git\\E1\\E1-Vtiger-crm\\src\\test\\resources\\commonData.properties");
 		
-//		step - 2 => by using load(), load all the keys in object of properties class
+//		step - 2 => by using load(), load all the keys
 		Properties pObj = new Properties();
 		pObj.load(fis);
 		
-//		step - 3 => By using getProperty(), get the value
+//		step - 3 => by using getProperty(), get all the values
 		String BROWSER = pObj.getProperty("bro");
 		String URL = pObj.getProperty("url");
 		String USERNAME = pObj.getProperty("un");
