@@ -1,12 +1,13 @@
 package object_repository;
 
-import java.time.Duration;
+import java.io.IOException;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import generic_utility.FileUtility;
 
 public class LoginPage {
 
@@ -38,17 +39,16 @@ public class LoginPage {
 		return loginBtn;
 	}
 
-	public static void main(String[] args) {
-		WebDriver driver = new ChromeDriver();
+	public void login() throws IOException {
+		FileUtility fUtil = new FileUtility();
+		String URL = fUtil.getDataFromPropFile("url");
+		String USERNAME = fUtil.getDataFromPropFile("un");
+		String PASSWORD = fUtil.getDataFromPropFile("pwd");
 
-		driver.get("http://localhost:8888/");
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
-
-		LoginPage lp = new LoginPage(driver);
-		WebElement un = lp.getUn();
-		un.sendKeys("admin");
-
+		driver.get(URL);
+		getUn().sendKeys(USERNAME);
+		getPwd().sendKeys(PASSWORD);
+		getLoginBtn().click();
 	}
 
 }

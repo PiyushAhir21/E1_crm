@@ -3,11 +3,15 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="extra.Demo">
+      <class name="com.comcast.crm.orgtest.CreateOrgTest">
         <methods>
-          <include name="main"/>
+          <include name="logout"/>
+          <include name="createOrgTest"/>
+          <include name="openBro"/>
+          <include name="closeBro"/>
+          <include name="login"/>
         </methods>
-      </class> <!-- extra.Demo -->
+      </class> <!-- com.comcast.crm.orgtest.CreateOrgTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

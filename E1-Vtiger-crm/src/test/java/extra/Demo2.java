@@ -2,6 +2,7 @@ package extra;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.Test;
 
@@ -16,5 +17,7 @@ public class Demo2 {
 		Thread.sleep(2000);
 		driver.close();
 		Reporter.log("Demo2",true);
+		
+		Assert.assertTrue(false);
 	}
 }

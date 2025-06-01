@@ -11,10 +11,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.annotations.Test;
 
 public class CreateContactTest {
 
-	public static void main(String[] args) throws InterruptedException, IOException {
+	@Test
+	public void add() throws IOException, InterruptedException {
+//	public static void main(String[] args) throws InterruptedException, IOException {
 //		step = 1 => get the java representation object of the physical file
 		FileInputStream fis = new FileInputStream(
 				"C:\\Users\\User\\git\\E1\\E1-Vtiger-crm\\src\\test\\resources\\commonData.properties");
