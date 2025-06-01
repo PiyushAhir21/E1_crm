@@ -11,6 +11,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 
 import generic_utility.FileUtility;
 import object_repository.HomePage;
@@ -21,12 +22,15 @@ public class BaseClass {
 	public WebDriver driver ;
 	public FileUtility fUtil = new FileUtility();
 
+	@Parameters("bro")
 	@BeforeClass
-	public void openBro() throws IOException {
+	public void openBro(String browser) throws IOException {
 //		public static void main(String[] args) throws InterruptedException, IOException {
-		String BROWSER = fUtil.getDataFromPropFile("bro");
+//		String BROWSER = fUtil.getDataFromPropFile("bro");
 //			opening browser	
 
+		String BROWSER = browser ;
+		
 		if (BROWSER.equals("chrome")) {
 			driver = new ChromeDriver();
 		} else if (BROWSER.equals("edge")) {
